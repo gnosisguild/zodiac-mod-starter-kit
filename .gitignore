@@ -8,3 +8,6 @@ typechain
 #Hardhat files
 cache
 artifacts
+deployments
+
+typechain-types
