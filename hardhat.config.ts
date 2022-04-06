@@ -30,6 +30,7 @@ const config: HardhatUserConfig = {
   namedAccounts: {
     deployer: 0,
     dependenciesDeployer: 1,
+    tester: 2,
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
