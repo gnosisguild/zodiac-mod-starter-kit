@@ -8,10 +8,6 @@ contract Button is Ownable {
 
     uint256 public pushes;
 
-    constructor(address owner) {
-        transferOwnership(owner);
-    }
-
     function pushButton() public onlyOwner {
         pushes++;
         emit ButtonPushed(msg.sender, pushes);
