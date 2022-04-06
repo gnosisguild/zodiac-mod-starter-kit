@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 import "@gnosis.pm/zodiac/contracts/core/Module.sol";
 
-abstract contract MyModule is Module {
+contract MyModule is Module {
     address public button;
 
     constructor(address _owner, address _button) {
