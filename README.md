@@ -2,7 +2,7 @@
 
 A starter kit for creating Zodiac Modules and Modifiers.
 
-The repo contains a sample based on the "Zodiac: build your own module tutorial" found [here](https://gnosis.github.io/zodiac/docs/tutorial-build-a-module/setup).
+The repo contains a sample based on the "Zodiac: build your own module" tutorial found [here](https://gnosis.github.io/zodiac/docs/tutorial-build-a-module/setup).
 
 ## Commands
 
