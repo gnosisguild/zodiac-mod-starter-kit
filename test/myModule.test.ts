@@ -13,7 +13,7 @@ const setup = async () => {
 }
 
 describe("MyModule", function () {
-  it("Should be possible for the My Module to 'press the button' through MyModule", async function () {
+  it("Should be possible to 'press the button' through MyModule", async function () {
     const { buttonContract, myModuleContract } = await setup()
     expect(await buttonContract.pushes()).to.equal(0)
     await myModuleContract.pushButton()

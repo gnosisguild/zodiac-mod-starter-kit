@@ -19,13 +19,13 @@ const deploy: DeployFunction = async function ({ deployments, getNamedAccounts, 
   // Enable MyModule as a module on the safe to give it access to the safe's execTransactionFromModule() function
   const deployerSigner = await ethers.getSigner(deployer)
   const mockSafeContract = await ethers.getContractAt("MockSafe", mockSafeDeployment.address, deployerSigner)
-  const currntActiveModule = await mockSafeContract.module()
-  if (currntActiveModule !== myModuleDeployment.address) {
+  const currentActiveModule = await mockSafeContract.module()
+  if (currentActiveModule !== myModuleDeployment.address) {
     const tx = await mockSafeContract.enableModule(myModuleDeployment.address)
     tx.wait()
-    console.log("MyModule enabled on the MockSafe.")
+    console.log("MyModule enabled on the MockSafe")
   } else {
-    console.log("MyModule already enabled on the MockSafe.")
+    console.log("MyModule already enabled on the MockSafe")
   }
 }
 

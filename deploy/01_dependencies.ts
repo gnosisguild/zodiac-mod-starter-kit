@@ -17,16 +17,16 @@ const deploy: DeployFunction = async function ({ deployments, getNamedAccounts, 
   })
   console.log("Button deployed to:", buttonDeployment.address)
 
-  // make the mocSafe the owner of the button
+  // Make the mocSafe the owner of the button
   const dependenciesDeployerSigner = await ethers.getSigner(dependenciesDeployer)
   const buttonContract = await ethers.getContractAt("Button", buttonDeployment.address, dependenciesDeployerSigner)
-  const currntOwner = await buttonContract.owner()
-  if (currntOwner !== mocSafeDeployment.address) {
+  const currentOwner = await buttonContract.owner()
+  if (currentOwner !== mocSafeDeployment.address) {
     const tx = await buttonContract.transferOwnership(mocSafeDeployment.address)
     tx.wait()
-    console.log("MocSafe set as owner of the button.")
+    console.log("MocSafe set as owner of the button")
   } else {
-    console.log("Owner of button is already set correctly.")
+    console.log("Owner of button is already set correctly")
   }
 }
 
