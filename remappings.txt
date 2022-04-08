@@ -2,3 +2,4 @@
 @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts
 @gnosis.pm/zodiac/=lib/zodiac
 @gnosis.pm/safe-contracts/=lib/safe-contracts
+ds-test=lib/ds-test/src
