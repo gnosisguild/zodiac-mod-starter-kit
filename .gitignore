@@ -4,6 +4,8 @@ coverage
 coverage.json
 typechain
 .devcontainer
+out
+.vscode
 
 #Hardhat files
 cache
