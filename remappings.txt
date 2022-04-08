@@ -1,0 +1,4 @@
+@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts
+@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts
+@gnosis.pm/zodiac/=lib/zodiac
+@gnosis.pm/safe-contracts/=lib/safe-contracts
