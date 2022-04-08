@@ -4,9 +4,11 @@ A starter kit for creating Zodiac Modules and Modifiers.
 
 The repo contains a sample based on the "Zodiac: build your own module" tutorial found [here](https://gnosis.github.io/zodiac/docs/tutorial-build-a-module/setup).
 
+This starter kit is set up to be used with **Hardhat**. A starter kit using Foundry is available [here](https://github.com/gnosis/zodiac-mod-starter-kit/tree/foundry).
+
 ## Commands
 
-It is set up to be used with Hardhat. To see available commands run `yarn hardhat`.
+To see available commands run `yarn hardhat`.
 
 Some helpful commands:
 
