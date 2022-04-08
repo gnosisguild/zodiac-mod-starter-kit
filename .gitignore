@@ -1,13 +1,2 @@
-node_modules
-.env
-coverage
-coverage.json
-typechain
-.devcontainer
-
-#Hardhat files
+out
 cache
-artifacts
-deployments
-
-typechain-types
