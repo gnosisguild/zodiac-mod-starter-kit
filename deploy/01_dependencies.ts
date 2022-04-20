@@ -7,24 +7,24 @@ const deploy: DeployFunction = async function ({ deployments, getNamedAccounts, 
   const { deploy } = deployments
   const { dependenciesDeployer } = await getNamedAccounts()
 
-  const mocSafeDeployment = await deploy("MockSafe", {
+  const testAvatarDeployment = await deploy("TestAvatar", {
     from: dependenciesDeployer,
   })
-  console.log("Mock Safe deployed to:", mocSafeDeployment.address)
+  console.log("TestAvatar deployed to:", testAvatarDeployment.address)
 
   const buttonDeployment = await deploy("Button", {
     from: dependenciesDeployer,
   })
   console.log("Button deployed to:", buttonDeployment.address)
 
-  // Make the mocSafe the owner of the button
+  // Make the TestAvatar the owner of the button
   const dependenciesDeployerSigner = await ethers.getSigner(dependenciesDeployer)
   const buttonContract = await ethers.getContractAt("Button", buttonDeployment.address, dependenciesDeployerSigner)
   const currentOwner = await buttonContract.owner()
-  if (currentOwner !== mocSafeDeployment.address) {
-    const tx = await buttonContract.transferOwnership(mocSafeDeployment.address)
+  if (currentOwner !== testAvatarDeployment.address) {
+    const tx = await buttonContract.transferOwnership(testAvatarDeployment.address)
     tx.wait()
-    console.log("MocSafe set as owner of the button")
+    console.log("TestAvatar set as owner of the button")
   } else {
     console.log("Owner of button is already set correctly")
   }
