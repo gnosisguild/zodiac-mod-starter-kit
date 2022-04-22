@@ -20,7 +20,7 @@ yarn hardhat test # runs the tests
 
 ## Deployment
 
-For "normal deployment" where the master copy is used directly.
+For "normal deployment" where the master copy is used directly. This can be useful for easily deploying and testing your module locally (for instance via Hardhat Network).
 
 ```
 yarn hardhat deploy
@@ -30,7 +30,7 @@ This deploys the the MyModule and the test contracts (`contracts/test/Button.sol
 
 ### Deployment using a mastercopy and minimal proxys
 
-For deployment modules that are going to be used for multiple avatars it can make sence to use our mastercopy/proxy pattern.
+For deployment modules that are going to be used for multiple avatars it can make sense to use our mastercopy/proxy pattern.
 Supported chains for this option is currently: 1, 4, 100, 137, 31337 and 8001. To add support to other chains see: https://github.com/gnosis/zodiac/tree/master/src/factory#deployments.
 
 Change the `paths.deplyment` variable from `"deploy/raw"` to `"deploy/mastercopy-proxy"`. Then run the deployment command.
