@@ -20,30 +20,24 @@ yarn hardhat test # runs the tests
 
 ## Deployment
 
-For "normal deployment" where the master copy is used directly. This can be useful for easily deploying and testing your module locally (for instance via Hardhat Network).
+This project is set up to support both a "normal deployment" where the mastercopy module is used directly and deployment via the Mastercopy / Minimal Proxy pattern.
+
+Currently, it is set up to deploy via the Mastercopy / Minimal Proxy pattern on Rinkeby and as a "normal deployment" on other networks.
 
 ```
-yarn hardhat deploy
+yarn hardhat deploy # "normal deployment"
+yarn hardhat deploy --network rinkeby # deploys a mastercopy and a minimal proxy for the module
 ```
 
-This deploys the the MyModule and the test contracts (`contracts/test/Button.sol` and `contracts/test/TestAvatar.sol`) and configures it (by setting the TestAvatar as the Button owner and enabling MyModule on the TestAvatar).
+The "normal deployment" can be useful for easily deploying and testing your module locally (for instance, the Hardhat Network).
 
-### Deployment using a mastercopy and minimal proxys
+The "normal deployment" deploys the MyModule contract and the test contracts (`contracts/test/Button.sol` and `contracts/test/TestAvatar.sol`), then sets the TestAvatar as the Button owner, and enables MyModule on the TestAvatar.
 
-For deployment modules that are going to be used for multiple avatars it can make sense to use our mastercopy/proxy pattern.
-Supported chains for this option is currently: 1, 4, 100, 137, 31337 and 8001. To add support to other chains see: https://github.com/gnosis/zodiac/tree/master/src/factory#deployments.
+The Mastercopy / Minimal Proxy deployment deploys the MyModule mastercopy, a MyModule proxy, and the test contracts (contracts/test/Button.sol and contracts/test/TestAvatar.sol), then sets the TestAvatar as the Button owner and enables the MyModule proxy on the TestAvatar.
 
-Change the `paths.deplyment` variable from `"deploy/raw"` to `"deploy/mastercopy-proxy"`. Then run the deployment command.
+### Mastercopy and minimal proxys
 
-<!-- TODO: turn this into a separate hardhat task so that the user does not need to edit the deploy path. -->
-
-```
-yarn hardhat task deploy
-```
-
-This deploys the MyModule mastercopy, a MyModule proxy and the test contracts (`contracts/test/Button.sol` and `contracts/test/TestAvatar.sol`) and configures it (by setting the TestAvatar as the Button owner and enabling the MyModule proxy on the TestAvatar).
-
-<!-- TODO: create a Hardhat task for deploying the master copy and a separate task for deploying proxies. -->
+When deploying modules that are going to be used for multiple avatars, it can make sense to use our Mastercopy/Proxy pattern. This deployment uses the Singleton Factory contract (EIP-2470). See a list of supported networks [here](https://blockscan.com/address/0xce0042B868300000d44A59004Da54A005ffdcf9f). For adding support to other chains, check out the documentation [here](https://github.com/gnosis/zodiac/tree/master/src/factory#deployments) and [here](https://eips.ethereum.org/EIPS/eip-2470).
 
 ## Attache your module to a Gnosis Safe
 

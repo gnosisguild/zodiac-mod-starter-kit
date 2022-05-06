@@ -1,7 +1,7 @@
 import "hardhat-deploy"
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
-import { deployAndSetUpUnknownModule } from "@gnosis.pm/zodiac/dist/src/factory/factory"
+import { deployAndSetUpCustomModule } from "@gnosis.pm/zodiac/dist/src/factory/factory"
 
 const deploy: DeployFunction = async function ({
   deployments,
@@ -20,7 +20,7 @@ const deploy: DeployFunction = async function ({
 
   const chainId = await getChainId()
 
-  const { transaction } = deployAndSetUpUnknownModule(
+  const { transaction } = deployAndSetUpCustomModule(
     myModuleMastercopyDeployment.address,
     myModuleMastercopyDeployment.abi,
     {
