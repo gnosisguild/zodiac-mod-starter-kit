@@ -18,6 +18,27 @@ yarn hardhat deploy # compiles and deploys the contracts add the `--network` par
 yarn hardhat test # runs the tests
 ```
 
+## Deployment
+
+This project is set up to support both a "normal deployment" where the mastercopy module is used directly and deployment via the Mastercopy / Minimal Proxy pattern.
+
+Currently, it is set up to deploy via the Mastercopy / Minimal Proxy pattern on Rinkeby and as a "normal deployment" on other networks.
+
+```
+yarn hardhat deploy # "normal deployment"
+yarn hardhat deploy --network rinkeby # deploys a mastercopy and a minimal proxy for the module
+```
+
+The "normal deployment" can be useful for easily deploying and testing your module locally (for instance, the Hardhat Network).
+
+The "normal deployment" deploys the MyModule contract and the test contracts (`contracts/test/Button.sol` and `contracts/test/TestAvatar.sol`), then sets the TestAvatar as the Button owner, and enables MyModule on the TestAvatar.
+
+The Mastercopy / Minimal Proxy deployment deploys the MyModule mastercopy, a MyModule proxy, and the test contracts (contracts/test/Button.sol and contracts/test/TestAvatar.sol), then sets the TestAvatar as the Button owner and enables the MyModule proxy on the TestAvatar.
+
+### Mastercopy and minimal proxys
+
+When deploying modules that are going to be used for multiple avatars, it can make sense to use our Mastercopy/Proxy pattern. This deployment uses the Singleton Factory contract (EIP-2470). See a list of supported networks [here](https://blockscan.com/address/0xce0042B868300000d44A59004Da54A005ffdcf9f). For adding support to other chains, check out the documentation [here](https://github.com/gnosis/zodiac/tree/master/src/factory#deployments) and [here](https://eips.ethereum.org/EIPS/eip-2470).
+
 ## Attache your module to a Gnosis Safe
 
 Once you have created a module and want to add it to a Gnosis Safe:
