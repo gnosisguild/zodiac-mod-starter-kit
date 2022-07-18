@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "hardhat compile",
+    "coverage": "hardhat coverage",
     "deploy": "hardhat deploy",
     "test": "hardhat test"
   },
