@@ -1,5 +1,9 @@
 # Zodiac Mod Starter Kit
 
+[![Build Status](https://github.com/gnosis/zodiac-mod-starter-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/gnosis/zodiac-mod-starter-kit/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/gnosis/zodiac-mod-starter-kit/badge.svg?branch=main&cache_bust=1)](https://coveralls.io/github/gnosis/zodiac-module-bridge?branch=main)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/gnosis/CODE_OF_CONDUCT)
+
 A starter kit for creating Zodiac Modules and Modifiers.
 
 The repo contains a sample based on the "Zodiac: build your own module" tutorial found [here](https://gnosis.github.io/zodiac/docs/tutorial-build-a-module/setup).
@@ -14,19 +18,20 @@ Some helpful commands:
 
 ```
 yarn install # install dependencies
-yarn hardhat deploy # compiles and deploys the contracts add the `--network` param to select a network
-yarn hardhat test # runs the tests
+yarn build # compiles contracts
+yarn test # runs the tests
+yarn deploy # deploys the contracts add the `--network` param to select a network
 ```
 
 ## Deployment
 
-This project is set up to support both a "normal deployment" where the mastercopy module is used directly and deployment via the Mastercopy / Minimal Proxy pattern.
+This project is set up to support both a "normal deployment" where the module is deployed directly, along with deployment via the Mastercopy / Minimal Proxy pattern (using our ModuleProxyFactory).
 
-Currently, it is set up to deploy via the Mastercopy / Minimal Proxy pattern on Rinkeby and as a "normal deployment" on other networks.
+Currently, it is set up to deploy via the Mastercopy / Minimal Proxy pattern on Rinkeby and as a "normal deployment" on other networks. You can easily modify this behavior for your own module.
 
 ```
-yarn hardhat deploy # "normal deployment"
-yarn hardhat deploy --network rinkeby # deploys a mastercopy and a minimal proxy for the module
+yarn deploy # "normal deployment"
+yarn  deploy --network rinkeby # deploys a mastercopy and a minimal proxy for the module
 ```
 
 The "normal deployment" can be useful for easily deploying and testing your module locally (for instance, the Hardhat Network).
