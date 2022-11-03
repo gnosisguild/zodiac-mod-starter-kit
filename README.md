@@ -27,11 +27,11 @@ yarn deploy # deploys the contracts add the `--network` param to select a networ
 
 This project is set up to support both a "normal deployment" where the module is deployed directly, along with deployment via the Mastercopy / Minimal Proxy pattern (using our ModuleProxyFactory).
 
-Currently, it is set up to deploy via the Mastercopy / Minimal Proxy pattern on Rinkeby and as a "normal deployment" on other networks. You can easily modify this behavior for your own module.
+Currently, it is set up to deploy via the Mastercopy / Minimal Proxy pattern on Goerli and as a "normal deployment" on other networks. You can easily modify this behavior for your own module.
 
 ```
 yarn deploy # "normal deployment"
-yarn  deploy --network rinkeby # deploys a mastercopy and a minimal proxy for the module
+yarn  deploy --network goerli # deploys a mastercopy and a minimal proxy for the module
 ```
 
 The "normal deployment" can be useful for easily deploying and testing your module locally (for instance, the Hardhat Network).
