@@ -1,11 +1,16 @@
 import "hardhat-deploy"
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
+import { deployModuleFactory } from "@gnosis.pm/zodiac/dist/src/factory/deployModuleFactory"
 
-const deploy: DeployFunction = async function ({ deployments, getNamedAccounts, ethers }: HardhatRuntimeEnvironment) {
-  console.log("Deploying 'external' dependencies")
+const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+  console.log("Deploying 'external' dependencies (Button and Avatar)")
+  const { deployments, getNamedAccounts, ethers } = hre
   const { deploy } = deployments
   const { deployer } = await getNamedAccounts()
+
+  // Deploys the ModuleFactory (and the Singleton factory) if it is not already deployed
+  await deployModuleFactory(hre)
 
   const testAvatarDeployment = await deploy("TestAvatar", {
     from: deployer,

@@ -1,7 +1,7 @@
 import "hardhat-deploy"
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
-import { deployAndSetUpCustomModule } from "@gnosis.pm/zodiac/dist/src/factory/factory"
+import { deployAndSetUpCustomModule, ContractAddresses, KnownContracts, SupportedNetworks } from "@gnosis.pm/zodiac"
 
 const deploy: DeployFunction = async function ({
   deployments,
@@ -19,6 +19,13 @@ const deploy: DeployFunction = async function ({
   const myModuleMastercopyDeployment = await deployments.get("MyModule")
 
   const chainId = await getChainId()
+  const network: SupportedNetworks = Number(chainId)
+
+  if ((await ethers.provider.getCode(ContractAddresses[network][KnownContracts.FACTORY])) === "0x") {
+    // it is the Module Factory should already be deployed to all supported chains
+    // if you are deploying to a chain where its not deployed yet (most likely locale test chains), run deployModuleFactory from the zodiac package
+    throw Error("The Module Factory is not deployed on this network. Please deploy it first.")
+  }
 
   const { transaction } = deployAndSetUpCustomModule(
     myModuleMastercopyDeployment.address,
@@ -33,7 +40,6 @@ const deploy: DeployFunction = async function ({
   )
   const deploymentTransaction = await deployerSigner.sendTransaction(transaction)
   const receipt = await deploymentTransaction.wait()
-  console.log(receipt)
   const myModuleProxyAddress = receipt.logs[1].address
   console.log("MyModule minimal proxy deployed to:", myModuleProxyAddress)
 

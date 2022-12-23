@@ -16,7 +16,6 @@ const config: HardhatUserConfig = {
     goerli: {
       url: process.env.GOERLI_URL || "",
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-      deploy: ["deploy/mastercopy-proxy"], // deploy via mastercopy and a proxy
     },
   },
   namedAccounts: {
@@ -30,9 +29,6 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
-  },
-  paths: {
-    deploy: "deploy/raw", // normal deployment
   },
 }
 
