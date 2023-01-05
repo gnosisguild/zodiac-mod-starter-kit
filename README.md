@@ -25,24 +25,26 @@ yarn deploy # deploys the contracts add the `--network` param to select a networ
 
 ## Deployment
 
-This project is set up to support both a "normal deployment" where the module is deployed directly, along with deployment via the Mastercopy / Minimal Proxy pattern (using our ModuleProxyFactory).
-
-Currently, it is set up to deploy via the Mastercopy / Minimal Proxy pattern on Goerli and as a "normal deployment" on other networks. You can easily modify this behavior for your own module.
+This project is set up for deployment via the Mastercopy / Minimal Proxy pattern (using our ModuleProxyFactory).
 
 ```
-yarn deploy # "normal deployment"
-yarn  deploy --network goerli # deploys a mastercopy and a minimal proxy for the module
+yarn deploy
 ```
 
-The "normal deployment" can be useful for easily deploying and testing your module locally (for instance, the Hardhat Network).
+This will set up a minimal sample Zodiac Module in the following steps:
 
-The "normal deployment" deploys the MyModule contract and the test contracts (`contracts/test/Button.sol` and `contracts/test/TestAvatar.sol`), then sets the TestAvatar as the Button owner, and enables MyModule on the TestAvatar.
-
-The Mastercopy / Minimal Proxy deployment deploys the MyModule mastercopy, a MyModule proxy, and the test contracts (contracts/test/Button.sol and contracts/test/TestAvatar.sol), then sets the TestAvatar as the Button owner and enables the MyModule proxy on the TestAvatar.
+1. Deploy the Singleton Factory [EIP-2470](https://eips.ethereum.org/EIPS/eip-2470), if its not already deployed to the current chain.
+   This is used for deploying Zodiac Modules (and the Module Factory) to the same address deterministic across chains.
+2. Deploy the Module, MyModule (`contracts/MyModule.sol`).
+3. Deploy the Zodiac Module Factory.
+4. Deploy a Test Avatar.
+5. Deploy a Button contract.
+6. Set the Test Avatar as the Button owner.
+7. Deploy a minimal proxy (clone) of the MyModule Module using the Zodiac Module Factory.
 
 ### Mastercopy and minimal proxys
 
-When deploying modules that are going to be used for multiple avatars, it can make sense to use our Mastercopy/Proxy pattern. This deployment uses the Singleton Factory contract (EIP-2470). See a list of supported networks [here](https://blockscan.com/address/0xce0042B868300000d44A59004Da54A005ffdcf9f). For adding support to other chains, check out the documentation [here](https://github.com/gnosis/zodiac/tree/master/src/factory#deployments) and [here](https://eips.ethereum.org/EIPS/eip-2470).
+This deployment uses the Singleton Factory contract (EIP-2470). See a list of supported networks [here](https://blockscan.com/address/0xce0042B868300000d44A59004Da54A005ffdcf9f). For adding support to other chains, check out the documentation [here](https://github.com/gnosis/zodiac/tree/master/src/factory#deployments) and [here](https://eips.ethereum.org/EIPS/eip-2470).
 
 ## Attache your module to a Gnosis Safe
 
