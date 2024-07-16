@@ -13,9 +13,8 @@ const deploy: DeployFunction = async function ({
   getChainId,
 }: HardhatRuntimeEnvironment) {
   console.log("Deploying MyModule Proxy")
-  // const { deployer } = await getNamedAccounts()
-  // const deployerSigner = await ethers.getSigner(deployer)
-  const [deployer] = await ethers.getSigners()
+  const { deployer: deployerAddress } = await getNamedAccounts()
+  const deployer = await ethers.getSigner(deployerAddress)
 
   const buttonDeployment = await deployments.get("Button")
   const testAvatarDeployment = await deployments.get("TestAvatar")
@@ -24,7 +23,6 @@ const deploy: DeployFunction = async function ({
 
   /// const chainId = await getChainId()
   // const network: SupportedNetworks = Number(chainId)
-
   // if ((await ethers.provider.getCode(ContractAddresses[network][KnownContracts.FACTORY])) === "0x") {
   //   // the Module Factory should already be deployed to all supported chains
   //   // if you are deploying to a chain where its not deployed yet (most likely locale test chains), run deployModuleFactory from the zodiac package

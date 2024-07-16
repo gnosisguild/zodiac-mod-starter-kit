@@ -9,11 +9,9 @@ const FirstAddress = "0x0000000000000000000000000000000000000001"
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { getNamedAccounts, ethers } = hre
-  const { deployer_address } = await getNamedAccounts()
+  const { deployer: deployerAddress } = await getNamedAccounts()
+  const deployer = await ethers.getSigner(deployerAddress)
 
-  // const deployer = await ethers.getSigner()
-
-  const [deployer] = await hre.ethers.getSigners()
   await createFactory(deployer)
 
   const MyModule = await ethers.getContractFactory("MyModule")

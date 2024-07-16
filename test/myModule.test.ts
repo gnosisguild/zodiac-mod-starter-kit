@@ -4,7 +4,6 @@ import { ethers, deployments, getNamedAccounts } from "hardhat"
 const setup = async () => {
   await deployments.fixture(["moduleProxy"])
   const { tester } = await getNamedAccounts()
-  const testSigner = await ethers.getSigner(tester)
   const buttonDeployment = await deployments.get("Button")
   const myModuleProxyDeployment = await deployments.get("MyModuleProxy")
   const buttonContract = await ethers.getContractAt("Button", buttonDeployment.address)

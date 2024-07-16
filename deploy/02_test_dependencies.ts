@@ -5,21 +5,20 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   console.log("Deploying 'external' dependencies (Button and Avatar)")
   const { deployments, getNamedAccounts, ethers } = hre
   const { deploy } = deployments
-  // const { deployer_address } = await getNamedAccounts()
-  const [deployer] = await ethers.getSigners()
+  const { deployer: deployerAddress } = await getNamedAccounts()
+  const deployer = await ethers.getSigner(deployerAddress)
 
   const testAvatarDeployment = await deploy("TestAvatar", {
-    from: await deployer.getAddress(),
+    from: deployerAddress,
   })
   console.log("TestAvatar deployed to:", testAvatarDeployment.address)
 
   const buttonDeployment = await deploy("Button", {
-    from: await deployer.getAddress(),
+    from: deployerAddress,
   })
   console.log("Button deployed to:", buttonDeployment.address)
 
   // Make the TestAvatar the owner of the button
-  // const dependenciesDeployerSigner = await ethers.getSigner(deployer_address)
   const buttonContract = await ethers.getContractAt("Button", buttonDeployment.address, deployer)
   const currentOwner = await buttonContract.owner()
   if (currentOwner !== testAvatarDeployment.address) {
