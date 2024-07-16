@@ -1,4 +1,3 @@
-import { ethers } from "hardhat"
 import "hardhat-deploy"
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
@@ -9,11 +8,13 @@ const FirstAddress = "0x0000000000000000000000000000000000000001"
 const Salt = "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  const contract = await ethers.getContractFactory("MyModule")
+  const { getNamedAccounts, ethers } = hre
+  const { deployer_address } = await getNamedAccounts()
+  const deployer = await ethers.getSigner(deployer_address)
 
   let address = await deployMastercopy(
-    hre,
-    contract,
+    deployer,
+    MODULE_CONTRACT_ARTIFACT,
     [
       FirstAddress, // owner
       FirstAddress, // button
@@ -21,11 +22,11 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     Salt,
   )
 
-  if (address === ethers.constants.AddressZero) {
+  if (address === ethers.ZeroAddress) {
     // the mastercopy was already deployed
     const target = await computeTargetAddress(
-      hre,
-      contract,
+      deployer,
+      MODULE_CONTRACT_ARTIFACT,
       [
         FirstAddress, // owner
         FirstAddress, // button

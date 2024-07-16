@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv"
 import { HardhatUserConfig } from "hardhat/config"
-import "@nomiclabs/hardhat-etherscan"
+import "@nomicfoundation/hardhat-verify"
 import "@nomiclabs/hardhat-ethers"
 import "@nomiclabs/hardhat-waffle"
 import "@typechain/hardhat"
@@ -11,7 +11,7 @@ import "hardhat-deploy"
 dotenv.config()
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.9",
+  solidity: "0.8.22",
   networks: {
     goerli: {
       url: process.env.GOERLI_URL || "",

@@ -7,8 +7,8 @@ const setup = async () => {
   const testSigner = await ethers.getSigner(tester)
   const buttonDeployment = await deployments.get("Button")
   const myModuleProxyDeployment = await deployments.get("MyModuleProxy")
-  const buttonContract = await ethers.getContractAt("Button", buttonDeployment.address, testSigner)
-  const myModuleProxyContract = await ethers.getContractAt("MyModule", myModuleProxyDeployment.address, testSigner)
+  const buttonContract = await ethers.getContractAt("Button", buttonDeployment.address)
+  const myModuleProxyContract = await ethers.getContractAt("MyModule", myModuleProxyDeployment.address)
   return { buttonContract, myModuleProxyContract }
 }
 

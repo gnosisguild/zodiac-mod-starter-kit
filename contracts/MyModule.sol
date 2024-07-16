@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: LGPL-3.0-only
-pragma solidity ^0.8.9;
+pragma solidity >=0.7.0 <0.9.0;
 
 import "@gnosis.pm/zodiac/contracts/core/Module.sol";
 
@@ -14,7 +14,7 @@ contract MyModule is Module {
     /// @dev Initialize function, will be triggered when a new proxy is deployed
     /// @param initializeParams Parameters of initialization encoded
     function setUp(bytes memory initializeParams) public override initializer {
-        __Ownable_init();
+        __Ownable_init(msg.sender);
         (address _owner, address _button) = abi.decode(initializeParams, (address, address));
 
         button = _button;
