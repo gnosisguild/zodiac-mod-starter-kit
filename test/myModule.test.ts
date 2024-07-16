@@ -21,6 +21,7 @@ describe("MyModule", function () {
   })
   it("Should NOT be possible to 'press the button' directly on the Button contract", async function () {
     const { buttonContract } = await setup()
-    await expect(buttonContract.pushButton()).to.revertedWith("Ownable: caller is not the owner")
+
+    await expect(buttonContract.pushButton()).to.revertedWithCustomError(buttonContract, "OwnableUnauthorizedAccount")
   })
 })

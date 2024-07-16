@@ -1,9 +1,7 @@
 import * as dotenv from "dotenv"
-import { HardhatUserConfig } from "hardhat/config"
-import "@nomicfoundation/hardhat-verify"
-import "@nomiclabs/hardhat-ethers"
-import "@nomiclabs/hardhat-waffle"
-import "@typechain/hardhat"
+import { HardhatUserConfig } from "hardhat/types"
+
+import "@nomicfoundation/hardhat-toolbox"
 import "hardhat-gas-reporter"
 import "solidity-coverage"
 import "hardhat-deploy"
