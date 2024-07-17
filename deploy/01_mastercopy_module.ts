@@ -1,43 +1,27 @@
-import { ethers } from "hardhat"
-import "hardhat-deploy"
+import { ZeroHash } from "ethers"
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
-import { computeTargetAddress, deployMastercopy } from "@gnosis.pm/zodiac"
+import { createFactory, deployViaFactory } from "../factories/eip2470"
+
 import MODULE_CONTRACT_ARTIFACT from "../artifacts/contracts/MyModule.sol/MyModule.json"
 
 const FirstAddress = "0x0000000000000000000000000000000000000001"
-const Salt = "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  const contract = await ethers.getContractFactory("MyModule")
+  const { getNamedAccounts, ethers } = hre
+  const { deployer: deployerAddress } = await getNamedAccounts()
+  const deployer = await ethers.getSigner(deployerAddress)
 
-  let address = await deployMastercopy(
-    hre,
-    contract,
-    [
-      FirstAddress, // owner
-      FirstAddress, // button
-    ],
-    Salt,
-  )
+  await createFactory(deployer)
 
-  if (address === ethers.constants.AddressZero) {
-    // the mastercopy was already deployed
-    const target = await computeTargetAddress(
-      hre,
-      contract,
-      [
-        FirstAddress, // owner
-        FirstAddress, // button
-      ],
-      Salt,
-    )
-    address = target.address
-  }
+  const MyModule = await ethers.getContractFactory("MyModule")
+  const tx = await MyModule.getDeployTransaction(FirstAddress, FirstAddress)
+
+  const mastercopy = await deployViaFactory({ bytecode: tx.data, salt: ZeroHash }, deployer)
 
   hre.deployments.save("MyModuleMastercopy", {
     abi: MODULE_CONTRACT_ARTIFACT.abi,
-    address,
+    address: mastercopy,
   })
 }
 

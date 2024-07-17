@@ -1,9 +1,7 @@
 import * as dotenv from "dotenv"
-import { HardhatUserConfig } from "hardhat/config"
-import "@nomiclabs/hardhat-etherscan"
-import "@nomiclabs/hardhat-ethers"
-import "@nomiclabs/hardhat-waffle"
-import "@typechain/hardhat"
+import { HardhatUserConfig } from "hardhat/types"
+
+import "@nomicfoundation/hardhat-toolbox"
 import "hardhat-gas-reporter"
 import "solidity-coverage"
 import "hardhat-deploy"
@@ -11,7 +9,7 @@ import "hardhat-deploy"
 dotenv.config()
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.9",
+  solidity: "0.8.22",
   networks: {
     goerli: {
       url: process.env.GOERLI_URL || "",

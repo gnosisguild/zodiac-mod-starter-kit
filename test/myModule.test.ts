@@ -4,11 +4,10 @@ import { ethers, deployments, getNamedAccounts } from "hardhat"
 const setup = async () => {
   await deployments.fixture(["moduleProxy"])
   const { tester } = await getNamedAccounts()
-  const testSigner = await ethers.getSigner(tester)
   const buttonDeployment = await deployments.get("Button")
   const myModuleProxyDeployment = await deployments.get("MyModuleProxy")
-  const buttonContract = await ethers.getContractAt("Button", buttonDeployment.address, testSigner)
-  const myModuleProxyContract = await ethers.getContractAt("MyModule", myModuleProxyDeployment.address, testSigner)
+  const buttonContract = await ethers.getContractAt("Button", buttonDeployment.address)
+  const myModuleProxyContract = await ethers.getContractAt("MyModule", myModuleProxyDeployment.address)
   return { buttonContract, myModuleProxyContract }
 }
 
@@ -21,6 +20,7 @@ describe("MyModule", function () {
   })
   it("Should NOT be possible to 'press the button' directly on the Button contract", async function () {
     const { buttonContract } = await setup()
-    await expect(buttonContract.pushButton()).to.revertedWith("Ownable: caller is not the owner")
+
+    await expect(buttonContract.pushButton()).to.revertedWithCustomError(buttonContract, "OwnableUnauthorizedAccount")
   })
 })
