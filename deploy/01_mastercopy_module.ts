@@ -1,7 +1,7 @@
 import { ZeroHash } from "ethers"
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
-import { deployFactories, deploySingleton } from "zodiac-core"
+import { deployFactories, deployMastercopy } from "zodiac-core"
 
 import createAdapter from "./eip1193"
 import MODULE_CONTRACT_ARTIFACT from "../artifacts/contracts/MyModule.sol/MyModule.json"
@@ -21,7 +21,7 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const MyModule = await ethers.getContractFactory("MyModule")
 
-  const { address: mastercopy } = await deploySingleton({
+  const { address: mastercopy } = await deployMastercopy({
     bytecode: MyModule.bytecode,
     constructorArgs: { types: ["address", "address"], values: [FirstAddress, FirstAddress] },
     salt: ZeroHash,
