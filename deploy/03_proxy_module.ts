@@ -1,16 +1,15 @@
-import { ZeroHash } from "ethers"
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
 
-import { createFactory, deployModAsProxy } from "../factories/moduleProxyFactory"
-
 import MODULE_CONTRACT_ARTIFACT from "../artifacts/contracts/MyModule.sol/MyModule.json"
+import createAdapter from "./eip1193"
+import { deployFactories, deployProxy } from "zodiac-core"
 
 const deploy: DeployFunction = async function ({
   deployments,
   getNamedAccounts,
   ethers,
-  getChainId,
+  network,
 }: HardhatRuntimeEnvironment) {
   console.log("Deploying MyModule Proxy")
   const { deployer: deployerAddress } = await getNamedAccounts()
@@ -18,8 +17,12 @@ const deploy: DeployFunction = async function ({
 
   const buttonDeployment = await deployments.get("Button")
   const testAvatarDeployment = await deployments.get("TestAvatar")
-
   const myModuleMastercopyDeployment = await deployments.get("MyModuleMastercopy")
+
+  const provider = createAdapter({
+    provider: network.provider,
+    signer: await ethers.getSigner(deployerAddress),
+  })
 
   /// const chainId = await getChainId()
   // const network: SupportedNetworks = Number(chainId)
@@ -32,19 +35,17 @@ const deploy: DeployFunction = async function ({
   console.log("buttonDeployment.address:", buttonDeployment.address)
 
   // Deploys the ModuleFactory (and the Singleton factory) if it is not already deployed
-  const factory = await createFactory(deployer)
-  const { transaction } = await deployModAsProxy(
-    factory,
-    myModuleMastercopyDeployment.address,
-    {
+  await deployFactories({ provider })
+  const { address: myModuleProxyAddress } = await deployProxy({
+    mastercopy: myModuleMastercopyDeployment.address,
+    setupArgs: {
       values: [testAvatarDeployment.address, buttonDeployment.address],
       types: ["address", "address"],
     },
-    ZeroHash,
-  )
-  const deploymentTransaction = await deployer.sendTransaction(transaction)
-  const receipt = (await deploymentTransaction.wait())!
-  const myModuleProxyAddress = receipt.logs[1].address
+    saltNonce: 0,
+    provider,
+  })
+
   console.log("MyModule minimal proxy deployed to:", myModuleProxyAddress)
 
   deployments.save("MyModuleProxy", {
