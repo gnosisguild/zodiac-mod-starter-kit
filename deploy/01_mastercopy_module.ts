@@ -1,10 +1,10 @@
 import { ZeroHash } from "ethers"
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
-import { deployFactories, deployMastercopy } from "zodiac-core"
+import { deployFactories, deployMastercopy } from "@gnosis-guild/zodiac-core"
 
 import createAdapter from "./eip1193"
-import MODULE_CONTRACT_ARTIFACT from "../artifacts/contracts/MyModule.sol/MyModule.json"
+import MODULE_CONTRACT_ARTIFACT from "../build/artifacts/contracts/MyModule.sol/MyModule.json"
 
 const FirstAddress = "0x0000000000000000000000000000000000000001"
 

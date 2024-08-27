@@ -1,7 +1,7 @@
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
 
-import MODULE_CONTRACT_ARTIFACT from "../artifacts/contracts/MyModule.sol/MyModule.json"
+import MODULE_CONTRACT_ARTIFACT from "../build/artifacts/contracts/MyModule.sol/MyModule.json"
 import createAdapter from "./eip1193"
 import { deployFactories, deployProxy } from "zodiac-core"
 
@@ -23,15 +23,7 @@ const deploy: DeployFunction = async function ({
     provider: network.provider,
     signer: await ethers.getSigner(deployerAddress),
   })
-
-  /// const chainId = await getChainId()
-  // const network: SupportedNetworks = Number(chainId)
-  // if ((await ethers.provider.getCode(ContractAddresses[network][KnownContracts.FACTORY])) === "0x") {
-  //   // the Module Factory should already be deployed to all supported chains
-  //   // if you are deploying to a chain where its not deployed yet (most likely locale test chains), run deployModuleFactory from the zodiac package
-  //   throw Error("The Module Factory is not deployed on this network. Please deploy it first.")
-  // }
-
+  
   console.log("buttonDeployment.address:", buttonDeployment.address)
 
   // Deploys the ModuleFactory (and the Singleton factory) if it is not already deployed
