@@ -10,12 +10,6 @@ dotenv.config()
 
 const config: HardhatUserConfig = {
   solidity: "0.8.22",
-  paths: {
-    artifacts: "build/artifacts",
-    cache: "build/cache",
-    deploy: "src/deploy",
-    sources: "contracts",
-  },
   networks: {
     sepolia: {
       url: process.env.SEPOLIA_URL || "",

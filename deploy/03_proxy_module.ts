@@ -1,7 +1,7 @@
 import { DeployFunction } from "hardhat-deploy/types"
 import { HardhatRuntimeEnvironment } from "hardhat/types"
 
-import MODULE_CONTRACT_ARTIFACT from "../build/artifacts/contracts/MyModule.sol/MyModule.json"
+import MODULE_CONTRACT_ARTIFACT from "../artifacts/contracts/MyModule.sol/MyModule.json"
 import createAdapter from "./eip1193"
 import { deployFactories, deployProxy } from "@gnosis-guild/zodiac-core"
 
