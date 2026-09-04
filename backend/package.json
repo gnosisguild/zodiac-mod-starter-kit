@@ -1,0 +1,23 @@
+{
+  "name": "tripwire-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Off-chain risk engine: watches pending Safe transactions, scores them, writes verdicts to RiskRegistry",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@safe-global/api-kit": "^5.0.3",
+    "dotenv": "^16.4.5",
+    "viem": "^2.56.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.23.13",
+    "typescript": "^5.6.3",
+    "vitest": "^5.0.0"
+  }
+}
